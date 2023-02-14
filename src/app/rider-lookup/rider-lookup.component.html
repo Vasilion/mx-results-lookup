@@ -1,0 +1,18 @@
+<div id="search-form" class="rider-lookup">
+    <form class="ama-search">
+        <mat-form-field class="ama-search-field">
+            <mat-label>Rider Name</mat-label>
+            <input matInput placeholder="Eli Tomac" [value]="racerName" name="racerName" [(ngModel)]="racerName">            
+        </mat-form-field>        
+        <button mat-raised-button color="primary" (click)="searchForRacer(racerName)">Search</button>
+    </form>
+</div>
+<div id="results">
+    <div>
+        <div class="rider-parent" [hidden]="!racer" *ngFor="let r of racer; let i = index">
+            <mat-card class="rider-card">                
+                {{r.name}} from {{r.city}}                
+            </mat-card>
+        </div>
+    </div>
+</div>
