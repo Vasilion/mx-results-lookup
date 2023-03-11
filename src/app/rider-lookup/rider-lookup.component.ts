@@ -47,6 +47,7 @@ export class RiderLookupComponent implements OnInit {
     this.riderService.getRacerProfile(racerSlug).subscribe(res => {
       let allRaces: RaceResult[] = [];
       res.runs.forEach(race => {
+        console.log(race);
         let result: RaceResult = {
           class: race.name,
           position: race.results[0].position_in_class,
