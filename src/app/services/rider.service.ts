@@ -1,15 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { RacerProfile } from '../interfaces/rider';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RiderService {
+  localProfile:RacerProfile;
 
   constructor(private http:HttpClient) 
   {
 
+  }
+
+  public updateLocalProfile(racerProfile:RacerProfile){
+    this.localProfile = racerProfile;
+  }
+
+  public getLocalProfile(){
+    return this.localProfile
   }
 
   // returns a list of racers

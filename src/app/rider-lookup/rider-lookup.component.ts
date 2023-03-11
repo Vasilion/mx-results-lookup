@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Racer, RaceResult, RacerProfile } from '../interfaces/rider';
 import { RiderService } from '../services/rider.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-rider-lookup',
@@ -22,7 +23,7 @@ export class RiderLookupComponent implements OnInit {
   riderSeasonlevel: string = "";
   years: number[] = [2021, 2022]
 
-  constructor(private riderService: RiderService) { }
+  constructor(private riderService: RiderService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -66,7 +67,8 @@ export class RiderLookupComponent implements OnInit {
         raceResults: allRaces
       }
       this.racerProfile = racerProfileResponse
-      console.log(this.racerProfile);
+      this.riderService.updateLocalProfile(this.racerProfile);
+      this.router.navigateByUrl('/riderProfile')
     })
   }
 
