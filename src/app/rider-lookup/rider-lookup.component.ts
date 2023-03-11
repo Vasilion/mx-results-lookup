@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Racer, RaceResult, RacerProfile } from '../interfaces/rider';
 import { RiderService } from '../services/rider.service';
 
 @Component({
@@ -7,34 +8,71 @@ import { RiderService } from '../services/rider.service';
   styleUrls: ['./rider-lookup.component.scss']
 })
 export class RiderLookupComponent implements OnInit {
-racerName:string = '';
-racerCity:string = '';
-racerFirstName:string = '';
-racerLastName:string = '';
-racerId: string = '';
-racer:any[] = [];
-racerProfile:any[] = [];
-results: any[]=[];
-currentTime = new Date()
-seasonYear:number = this.currentTime.getFullYear();
-riderSeasonlevel: string = "";
-years:number[] = [2021,2022]
+  racerName: string = '';
+  racerCity: string = '';
+  racerFirstName: string = '';
+  racerLastName: string = '';
+  racerId: string = '';
+  racerList: Racer[];
+  racer: Racer;
+  racerProfile: RacerProfile;
+  results: any[] = [];
+  currentTime = new Date()
+  seasonYear: number = this.currentTime.getFullYear();
+  riderSeasonlevel: string = "";
+  years: number[] = [2021, 2022]
 
   constructor(private riderService: RiderService) { }
 
   ngOnInit(): void {
   }
 
-  searchForRacer(name:string){
-    this.racer = []
-    this.racerProfile = [];
-    this.results = [];
-    this.riderSeasonlevel= "";
-    this.riderService.getRacerList(name).subscribe(res =>{
-      this.racer = res.data;
-      console.log(this.racer)
-    })
-    
+  searchForRacer(riderName: string) {
+    this.racerList = [];
+    this.riderService.getRacerList(riderName).subscribe(res => {
+      res.data.forEach(element => {
+        let racer: Racer = {
+          name: element.name,
+          slug: element.slug,
+          state: element.state,
+          city: element.city
+        }
+        this.racerList.push(racer);
+      });
+    });
   }
 
+  buildRacerProfile(racerSlug: string) {
+    this.riderService.getRacerProfile(racerSlug).subscribe(res => {
+      let allRaces: RaceResult[] = [];
+      res.runs.forEach(race => {
+        let result: RaceResult = {
+          class: race.name,
+          position: race.results[0].position_in_class,
+          dateString: race.started_at
+        }
+        allRaces.push(result);
+      })
+      let racerProfileResponse: RacerProfile = {
+        firstName: res.profile.first_name,
+        lastName: res.profile.last_name,
+        birthdate: res.profile.birthdate,
+        city: res.profile.city,
+        homeTown: res.profile.homeTown,
+        amaNumber: res.profile.meta.ama_num,
+        class: res.profile.meta.levels.MX,
+        slug: res.profile.slug,
+        state: res.profile.state,
+        raceResults: allRaces
+      }
+      this.racerProfile = racerProfileResponse
+      console.log(this.racerProfile);
+    })
+  }
+
+
 }
+
+
+
+

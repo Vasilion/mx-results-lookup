@@ -10,12 +10,14 @@ import {MatButtonModule} from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
+import { RiderProfileComponent } from './rider-profile/rider-profile.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    RiderLookupComponent
+    RiderLookupComponent,
+    RiderProfileComponent
   ],
   imports: [
     BrowserModule,

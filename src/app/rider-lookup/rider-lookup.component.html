@@ -9,8 +9,8 @@
 </div>
 <div id="results">
     <div>
-        <div class="rider-parent" [hidden]="!racer" *ngFor="let r of racer; let i = index">
-            <mat-card class="rider-card">                
+        <div class="rider-parent" [hidden]="!racerList" *ngFor="let r of racerList; let i = index">
+            <mat-card class="rider-card" (click)="buildRacerProfile(r.slug)">                
                 {{r.name}} from {{r.city}}                
             </mat-card>
         </div>

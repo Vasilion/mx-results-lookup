@@ -10,7 +10,6 @@
 .ama-search-field{
     width: 100%;
 }
-
 .rider-parent {
     & :hover{
         box-shadow: 0 8px 8px 8px rgba(0,0,0,.2), 0 8px 8px 0 rgba(0,0,0,.14), 0 8px 8px 0 rgba(0,0,0,.12) !important;
@@ -18,9 +17,9 @@
         transition: background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);
     }
 }
-
 .rider-card{
     background-color: rgb(231, 229, 229);
     margin: 5px;
-    width: 50%;   
+    width: 50%;
+    cursor: pointer;   
 }
