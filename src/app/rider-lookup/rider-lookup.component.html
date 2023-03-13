@@ -1,18 +1,24 @@
-<div id="search-form" class="rider-lookup">
-    <form class="ama-search">
-        <mat-form-field class="ama-search-field">
-            <mat-label>Rider Name</mat-label>
-            <input matInput placeholder="Eli Tomac" [value]="racerName" name="racerName" [(ngModel)]="racerName">            
-        </mat-form-field>        
-        <button mat-raised-button color="primary" (click)="searchForRacer(racerName)">Search</button>
-    </form>
+<ion-content class="ion-padding">
+<div id="search-form">
+    <ion-item>
+        <ion-input placeholder="Rider Name or AMA Number" [value]="racerName" name="racerName" [(ngModel)]="racerName"></ion-input>
+    </ion-item>
+    <ion-button class="center" (click)="searchForRacer(racerName)">Search</ion-button>
 </div>
 <div id="results">
     <div>
         <div class="rider-parent" [hidden]="!racerList" *ngFor="let r of racerList; let i = index">
-            <mat-card class="rider-card" (click)="buildRacerProfile(r.slug)">                
-                {{r.name}} from {{r.city}}                
-            </mat-card>
+            <ion-item (click)="buildRacerProfile(r.slug)">                
+                <ion-label>
+                    <h1>
+                        {{r.name}}
+                    </h1>
+                    <p>
+                        {{r.city}} 
+                    </p> 
+                </ion-label>               
+            </ion-item>
         </div>
     </div>
 </div>
+</ion-content>

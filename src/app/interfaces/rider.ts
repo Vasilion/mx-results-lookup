@@ -15,11 +15,37 @@ export interface RacerProfile{
     slug: string;
     state: string;
     class: string;
-    raceResults: RaceResult[];
+    raceResults: RacerProfileRaceResult[];
 }
 
-export interface RaceResult{
+export interface RacerProfileRaceResult{
     class: string;
     position: number;
     dateString: string;
+}
+
+export interface Event{
+    dateString: string;
+    eventName: string;
+    trackName: string;
+    slug: string;
+    id: number;
+    city: string;
+    district: string;
+    year: string;
+    state: string;
+    class: string;
+    racerName: string;
+    amaNumber: string;
+    moto1Result: string;
+    moto2Result: string;
+    overallResult: string;
+    eventPoints: string;
+}
+
+export interface Points{
+    class: string;
+    points: number;
+    raceCount: number;
+    rpv: number;
 }

@@ -1,36 +1,63 @@
-<div class="center-div">
-    <div class="row rider-name">
-        <span>
-            {{racerProfile.firstName}} {{racerProfile.lastName}}
-        </span>
-    </div>
-    <div class="row rider-num">
-        <span>
-            {{racerProfile.amaNumber}}
-        </span>
-    </div>
-</div>
-<div class="center">
-    <mat-card class="about-card">
-        <span>About</span>
-        <span>{{racerProfile.birthdate}}</span>
-        <span>Home Town: {{racerProfile.city}}, {{racerProfile.state.toUpperCase()}}</span>
-    </mat-card>
-</div>
-<div class="center">
-    <mat-card class="result-card">
-        <div class="center-div rider-name">
-            Race History
+<ion-content class="ion-padding">
+    <div class="center-div">
+        <div class="row rider-name">
+            <span>
+                {{racerProfile.firstName}} {{racerProfile.lastName}}
+            </span>
         </div>
-        <mat-accordion>
-            <mat-expansion-panel [expanded]="panelOpenState" *ngFor="let r of racerProfile.raceResults;">
-                <mat-expansion-panel-header [collapsedHeight]="'40px'" [expandedHeight]="'40px'">
-                    <mat-panel-title>
-                        {{r.class}} | {{r.dateString | date: "longDate"}}
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <p>Position: {{r.position}}</p>
-            </mat-expansion-panel>
-        </mat-accordion>
-    </mat-card>
-</div>
+        <div class="row rider-num">
+            <span>
+                {{racerProfile.amaNumber}}
+            </span>
+        </div>
+    </div>
+    <div class="center">
+        <ion-card>
+            <ion-card-header>
+                <ion-card-title>About</ion-card-title>
+                <ion-card-subtitle>{{racerProfile.firstName}} {{racerProfile.lastName}}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+                <p>{{racerProfile.birthdate | date: "longDate"}}</p>
+                <p>Home Town: {{racerProfile.city}}, {{racerProfile.state.toUpperCase()}}</p>
+            </ion-card-content>
+        </ion-card>
+    </div>
+    <div class="center">
+        <ion-card>
+            <ion-card-header class="race-list">
+                <ion-card-title>Race History</ion-card-title>
+                <ion-card-subtitle>{{racerProfile.firstName}} {{racerProfile.lastName}}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-list>
+                    <ion-item *ngFor="let r of racerResults.reverse();">
+                        <ion-label>
+                            <h2>
+                                {{r.eventName}} {{r.year}}
+                            </h2>
+                            <p [hidden]="r.trackName == 'Unknown AMA Venue'">
+                                <b>Venue:</b> {{r.trackName}}
+                            </p>
+                            <p>
+                                <b>City:</b> {{r.city}}, {{r.state}}
+                            </p>
+                            <p>
+                                <b>District:</b> {{r.district}}
+                            </p>
+                            <p>
+                                <b>Class:</b> {{r.class}}
+                            </p>
+                            <p>
+                                <b>Date:</b> {{r.dateString | date: "longDate"}}
+                            </p>
+                            <p>
+                                <b>Overall: {{r.overallResult}}</b> | Moto 1: {{r.moto1Result}} | Moto 2: {{r.moto2Result}} 
+                            </p>
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-card-content>
+        </ion-card>
+    </div>
+</ion-content>

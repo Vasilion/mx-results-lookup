@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Racer, RaceResult, RacerProfile } from '../interfaces/rider';
+import { Racer, RacerProfileRaceResult, RacerProfile } from '../interfaces/rider';
 import { RiderService } from '../services/rider.service';
 import { Router } from '@angular/router';
 
@@ -45,10 +45,9 @@ export class RiderLookupComponent implements OnInit {
 
   buildRacerProfile(racerSlug: string) {
     this.riderService.getRacerProfile(racerSlug).subscribe(res => {
-      let allRaces: RaceResult[] = [];
+      let allRaces: RacerProfileRaceResult[] = [];
       res.runs.forEach(race => {
-        console.log(race);
-        let result: RaceResult = {
+        let result: RacerProfileRaceResult = {
           class: race.name,
           position: race.results[0].position_in_class,
           dateString: race.started_at

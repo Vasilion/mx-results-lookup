@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { RiderProfileComponent } from './rider-profile/rider-profile.component';
+import { IonicModule } from '@ionic/angular';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { RiderProfileComponent } from './rider-profile/rider-profile.component';
     HttpClientModule,
     MatExpansionModule,
     FormsModule,
-    MatCardModule
+    MatCardModule,
+    IonicModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

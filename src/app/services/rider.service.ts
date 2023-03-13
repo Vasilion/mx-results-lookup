@@ -34,8 +34,8 @@ export class RiderService {
     return this.http.get(url) 
   }
 
-  public getResults(slug:string, year:number): Observable<any>{  
-    let url = 'https://racehero.io/api/v1/public/sanctioning_organizations/ama/racers/'+ slug + '?include=results,points&year='+ year + '&is_proam=false'
+  public getResults(slug:string): Observable<any>{  
+    let url = 'https://racehero.io/api/v1/public/sanctioning_organizations/ama/racers/'+ slug + '?include=results,points&is_proam=false'
     return this.http.get(url) 
   }
 }
