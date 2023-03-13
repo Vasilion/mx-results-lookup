@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class RiderLookupComponent implements OnInit {
   racerName: string = '';
   racerCity: string = '';
+  isData: boolean = true;
   racerFirstName: string = '';
   racerLastName: string = '';
   racerId: string = '';
@@ -31,6 +32,10 @@ export class RiderLookupComponent implements OnInit {
   searchForRacer(riderName: string) {
     this.racerList = [];
     this.riderService.getRacerList(riderName).subscribe(res => {
+      console.log(res.count);
+      if(res.count === 0){
+        this.isData = false;
+      }
       res.data.forEach(element => {
         let racer: Racer = {
           name: element.name,
@@ -39,6 +44,7 @@ export class RiderLookupComponent implements OnInit {
           city: element.city
         }
         this.racerList.push(racer);
+        this.isData = true;
       });
     });
   }

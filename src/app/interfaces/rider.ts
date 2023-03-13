@@ -28,7 +28,7 @@ export interface Event{
     dateString: string;
     eventName: string;
     trackName: string;
-    slug: string;
+    eventSlug: string;
     id: number;
     city: string;
     district: string;
@@ -41,6 +41,7 @@ export interface Event{
     moto2Result: string;
     overallResult: string;
     eventPoints: string;
+    classSlug: string;
 }
 
 export interface Points{

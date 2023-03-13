@@ -27,11 +27,13 @@ export class RiderProfileComponent implements OnInit {
       console.log(res);
       let allResults: Event[] = [];
       res.results.forEach( race =>{
+        let classSlugIndex = race.run.results_url.lastIndexOf('/');
+        let cSlug = race.run.results_url.substring(classSlugIndex + 1)
         let result: Event = {
           dateString: race.event.started_at,
           eventName: race.event.name,
           trackName: race.event.venue.name,
-          slug: race.event.slug,
+          eventSlug: race.event.slug,
           id: race.event.id,
           city: race.event.meta.city,
           district: race.event.meta.district,
@@ -43,12 +45,19 @@ export class RiderProfileComponent implements OnInit {
           moto1Result: race.meta.moto1Finish,
           moto2Result: race.meta.moto2Finish,
           overallResult: race.position_in_class,
-          eventPoints: race.meta.points
+          eventPoints: race.meta.points,
+          classSlug: cSlug
         }
         allResults.push(result);
       })
-      this.racerResults = allResults;
-      console.log(this.racerResults);
+      this.racerResults = allResults.reverse();
+    })
+  }
+
+  getRaceDetails(classSlug: string){
+    this.riderService.getClassDetailsByEvent(classSlug).subscribe(res =>{
+      console.log(res);
+      // pickup here, build out race details object and ui
     })
   }
 

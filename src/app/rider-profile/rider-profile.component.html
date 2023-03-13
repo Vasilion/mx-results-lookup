@@ -1,25 +1,31 @@
 <ion-content class="ion-padding">
     <div class="center-div">
-        <div class="row rider-name">
-            <span>
-                {{racerProfile.firstName}} {{racerProfile.lastName}}
-            </span>
+        <div>
+            <ion-item>
+                <h1>{{racerProfile.firstName}} {{racerProfile.lastName}}</h1>
+            </ion-item>
         </div>
-        <div class="row rider-num">
-            <span>
-                {{racerProfile.amaNumber}}
-            </span>
+        <div>
+            <ion-item>
+                <h2>AMA Member: {{racerProfile.amaNumber}}</h2>
+            </ion-item>
+        </div>
+        <div>
+            <ion-item>
+                <h2>Rank: </h2>
+            </ion-item>
         </div>
     </div>
     <div class="center">
-        <ion-card>
+        <ion-card class="wider-card">
             <ion-card-header>
                 <ion-card-title>About</ion-card-title>
                 <ion-card-subtitle>{{racerProfile.firstName}} {{racerProfile.lastName}}</ion-card-subtitle>
             </ion-card-header>
             <ion-card-content>
-                <p>{{racerProfile.birthdate | date: "longDate"}}</p>
-                <p>Home Town: {{racerProfile.city}}, {{racerProfile.state.toUpperCase()}}</p>
+                <p><b>Rider Class:</b> {{racerProfile.class}}</p>
+                <p><b>Rider Birthdate:</b> {{racerProfile.birthdate | date: "longDate"}}</p>
+                <p><b>Home Town:</b> {{racerProfile.city}}, {{racerProfile.state.toUpperCase()}}</p>
             </ion-card-content>
         </ion-card>
     </div>
@@ -31,7 +37,7 @@
             </ion-card-header>
             <ion-card-content>
                 <ion-list>
-                    <ion-item *ngFor="let r of racerResults.reverse();">
+                    <ion-item *ngFor="let r of racerResults;" (click)="getRaceDetails(r.classSlug)">
                         <ion-label>
                             <h2>
                                 {{r.eventName}} {{r.year}}

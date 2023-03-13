@@ -1,14 +1,23 @@
 <ion-content class="ion-padding">
 <div id="search-form">
-    <ion-item>
-        <ion-input placeholder="Rider Name or AMA Number" [value]="racerName" name="racerName" [(ngModel)]="racerName"></ion-input>
+    <ion-item fill="outline">
+        <ion-label position="floating">Search Rider</ion-label>
+        <ion-input [value]="racerName" placeholder="Enter Name or AMA #" name="racerName" [(ngModel)]="racerName"></ion-input>
     </ion-item>
-    <ion-button class="center" (click)="searchForRacer(racerName)">Search</ion-button>
+    <br />
+    <ion-button color="light" (click)="searchForRacer(racerName)">Search</ion-button>
 </div>
 <div id="results">
     <div>
-        <div class="rider-parent" [hidden]="!racerList" *ngFor="let r of racerList; let i = index">
-            <ion-item (click)="buildRacerProfile(r.slug)">                
+        <div>
+            <ion-item [hidden]="isData">
+                <ion-label>
+                    <h1>No Results Found.</h1>
+                </ion-label>
+            </ion-item>
+        </div>
+        <div *ngFor="let r of racerList; let i = index">
+            <ion-item [hidden]="!racerList" (click)="buildRacerProfile(r.slug)">                
                 <ion-label>
                     <h1>
                         {{r.name}}

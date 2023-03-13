@@ -34,8 +34,15 @@ export class RiderService {
     return this.http.get(url) 
   }
 
+  // returns all races and points for a given rider
   public getResults(slug:string): Observable<any>{  
     let url = 'https://racehero.io/api/v1/public/sanctioning_organizations/ama/racers/'+ slug + '?include=results,points&is_proam=false'
+    return this.http.get(url) 
+  }
+
+  // returns results of a specifc class on a specific event/race
+  public getClassDetailsByEvent(classSlug:string): Observable<any>{  
+    let url = 'https://racehero.io/api/v1/public/sanctioning_organizations/ama/runs/' + classSlug 
     return this.http.get(url) 
   }
 }
