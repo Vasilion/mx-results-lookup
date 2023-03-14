@@ -20,6 +20,7 @@ export class RiderProfileComponent implements OnInit {
   eventResults: any[];
   riderRank: string;
   experienceToLevelUp: string;
+  isLoading: boolean = false;
 
   constructor(private riderService: RiderService) { }
 
@@ -34,7 +35,7 @@ export class RiderProfileComponent implements OnInit {
   
   getRacerResults(){
     this.riderService.getResults(this.racerProfile.slug).subscribe( res =>{
-      console.log(res);
+      this.isLoading = true;
       let allResults: Event[] = [];
       res.results.forEach( race =>{
         let classSlugIndex = race.run.results_url.lastIndexOf('/');
@@ -59,6 +60,7 @@ export class RiderProfileComponent implements OnInit {
           classSlug: cSlug
         }
         allResults.push(result);
+        this.isLoading = false;
       })
       this.racerResults = allResults.reverse();
       this.setRiderRank(this.racerResults);
