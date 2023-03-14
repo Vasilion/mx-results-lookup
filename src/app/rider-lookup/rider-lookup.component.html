@@ -1,12 +1,13 @@
-<ion-content class="ion-padding">
+<ion-content class="ion-padding" color="light">
 <div id="search-form">
     <ion-item fill="outline">
         <ion-label position="floating">Search Rider</ion-label>
         <ion-input [value]="racerName" placeholder="Enter Name or AMA #" name="racerName" [(ngModel)]="racerName"></ion-input>
     </ion-item>
     <br />
-    <ion-button color="light" (click)="searchForRacer(racerName)">Search</ion-button>
+    <ion-button color="primary" (click)="searchForRacer(racerName)">Search</ion-button>
 </div>
+<br />
 <div id="results">
     <div>
         <div>

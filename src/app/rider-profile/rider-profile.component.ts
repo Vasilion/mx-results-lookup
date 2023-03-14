@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatAccordion } from '@angular/material';
+import { IonModal } from '@ionic/angular';
 import { Event, RacerProfile } from '../interfaces/rider';
 import { RiderService } from '../services/rider.service';
 
@@ -10,16 +11,25 @@ import { RiderService } from '../services/rider.service';
 })
 export class RiderProfileComponent implements OnInit {
   @ViewChild(MatAccordion) accordion: MatAccordion;
+  @ViewChild(IonModal) modal: IonModal;
 
   racerProfile:RacerProfile;
   racerResults: Event[];
   panelOpenState: boolean = false;
+  modalID: string;
+  eventResults: any[];
+  riderRank: string;
+  experienceToLevelUp: string;
 
   constructor(private riderService: RiderService) { }
 
   ngOnInit(): void {
     this.racerProfile = this.riderService.getLocalProfile();
     this.getRacerResults();
+  }
+
+  cancel() {
+    this.modal.dismiss();
   }
   
   getRacerResults(){
@@ -51,13 +61,66 @@ export class RiderProfileComponent implements OnInit {
         allResults.push(result);
       })
       this.racerResults = allResults.reverse();
+      this.setRiderRank(this.racerResults);
     })
   }
 
+  setRiderRank(results: Event[]){
+    let experience: number = 0;
+
+    //1xp for each race, regardless of finish
+    experience = results.length * 1;
+
+    //gain xp for podiums, better spot = more xp
+    results.forEach(r =>{
+      if(r.overallResult == '3'){
+        experience += 1
+      }
+      if(r.overallResult == '2'){
+        experience += 2
+      }
+      if(r.overallResult == '1'){
+        experience += 3
+      }
+    })
+
+    if(experience < 10){
+      this.riderRank = 'Bronze'
+    }
+    if(experience >= 10 && experience < 30){
+      this.experienceToLevelUp = (30 - experience).toString() + " xp to level up."
+      this.riderRank = 'Silver'
+    }
+    if(experience >= 30 && experience < 70){
+      this.experienceToLevelUp = (70 - experience).toString() + " xp to level up."
+      this.riderRank = 'Gold'
+    }
+    if(experience >= 70 && experience < 120){
+      this.experienceToLevelUp = (120 - experience).toString() + " xp to level up."
+      this.riderRank = 'Platinum'
+    }
+    if(experience >= 120 && experience < 300){
+      this.experienceToLevelUp = (300 - experience).toString() + " xp to level up."
+      this.riderRank = 'Diamond'
+    }
+    if(experience >= 300 && experience < 600){
+      this.experienceToLevelUp = (600 - experience).toString() + " xp to level up."
+      this.riderRank = 'Champion'
+    }
+    if(experience > 600){
+      this.experienceToLevelUp = "Max Level Achieved!"
+      this.riderRank = 'Master'
+    }
+
+    console.log(experience);
+  }
+
   getRaceDetails(classSlug: string){
+    this.modal.present();
     this.riderService.getClassDetailsByEvent(classSlug).subscribe(res =>{
       console.log(res);
-      // pickup here, build out race details object and ui
+      this.eventResults = res.results.sort((a, b) => (a.position_in_class > b.position_in_class) ? 1 : -1);
+      console.log(this.eventResults);
     })
   }
 

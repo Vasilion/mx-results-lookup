@@ -13,13 +13,15 @@ import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { RiderProfileComponent } from './rider-profile/rider-profile.component';
 import { IonicModule } from '@ionic/angular';
+import { HelpGuideComponent } from './help-guide/help-guide.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     RiderLookupComponent,
-    RiderProfileComponent
+    RiderProfileComponent,
+    HelpGuideComponent
   ],
   imports: [
     BrowserModule,

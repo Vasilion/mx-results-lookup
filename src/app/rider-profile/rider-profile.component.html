@@ -1,20 +1,25 @@
-<ion-content class="ion-padding">
-    <div class="center-div">
-        <div>
+<ion-content class="ion-padding" color="light">
+    <div class="center">
+        <ion-card class="wider-card">
             <ion-item>
-                <h1>{{racerProfile.firstName}} {{racerProfile.lastName}}</h1>
+                <ion-label>
+                    <h1>
+                        {{racerProfile.firstName}} {{racerProfile.lastName}}
+                    </h1>
+                </ion-label>
             </ion-item>
-        </div>
-        <div>
             <ion-item>
-                <h2>AMA Member: {{racerProfile.amaNumber}}</h2>
+                <ion-label>
+                    <h2>AMA Member: {{racerProfile.amaNumber}}</h2>
+                </ion-label>
             </ion-item>
-        </div>
-        <div>
             <ion-item>
-                <h2>Rank: </h2>
+                <ion-label>
+                    <h2>Rank: {{riderRank}} </h2>
+                    <p> {{experienceToLevelUp}}</p>
+                </ion-label>
             </ion-item>
-        </div>
+        </ion-card>
     </div>
     <div class="center">
         <ion-card class="wider-card">
@@ -31,16 +36,16 @@
     </div>
     <div class="center">
         <ion-card>
-            <ion-card-header class="race-list">
+            <ion-card-header>
                 <ion-card-title>Race History</ion-card-title>
                 <ion-card-subtitle>{{racerProfile.firstName}} {{racerProfile.lastName}}</ion-card-subtitle>
             </ion-card-header>
             <ion-card-content>
-                <ion-list>
-                    <ion-item *ngFor="let r of racerResults;" (click)="getRaceDetails(r.classSlug)">
+                <ion-list class="race-list">
+                    <ion-item *ngFor="let r of racerResults;">
                         <ion-label>
                             <h2>
-                                {{r.eventName}} {{r.year}}
+                                <b>{{r.eventName}} {{r.year}}</b>
                             </h2>
                             <p [hidden]="r.trackName == 'Unknown AMA Venue'">
                                 <b>Venue:</b> {{r.trackName}}
@@ -58,7 +63,11 @@
                                 <b>Date:</b> {{r.dateString | date: "longDate"}}
                             </p>
                             <p>
-                                <b>Overall: {{r.overallResult}}</b> | Moto 1: {{r.moto1Result}} | Moto 2: {{r.moto2Result}} 
+                                <b>Overall:</b> {{r.overallResult}}
+                            </p>
+                            <p>
+                                <ion-button color="primary" id={{modalID}} expand="block"
+                                    (click)="getRaceDetails(r.classSlug)">View Results</ion-button>
                             </p>
                         </ion-label>
                     </ion-item>
@@ -66,4 +75,30 @@
             </ion-card-content>
         </ion-card>
     </div>
+    <ion-modal trigger={{modalID}}>
+        <ng-template>
+            <ion-header>
+                <ion-toolbar>
+                    <ion-buttons slot="start">
+                        <ion-button (click)="cancel()">Back</ion-button>
+                    </ion-buttons>
+                    <ion-title>Event Results</ion-title>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content class="ion-padding">
+                <ion-list>
+                    <ion-item *ngFor="let e of eventResults;">
+                        <ion-label>
+                            <h2>
+                                {{e.position_in_class}} Overall - {{e.racer_name}}
+                            </h2>
+                            <p>
+                                Moto 1: {{e.meta.moto1Finish}} | Moto 2 : {{e.meta.moto2Finish}}
+                            </p>
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-content>
+        </ng-template>
+    </ion-modal>
 </ion-content>
