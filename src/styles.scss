@@ -1,6 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
+@font-face {
+    font-family: MX;
+    src: url(assets/fonts/VAST_MX.otf) format("opentype");
+}
+
+.mx-font{
+    font-family: 'MX' !important;
+    font-size: 20px;
+}
+
+.logo{
+    border-radius: 15px;
+}
+
 .center{
     display: flex;
     justify-content: center;

@@ -20,8 +20,16 @@
     "@angular/platform-browser": "^14.0.0",
     "@angular/platform-browser-dynamic": "^14.0.0",
     "@angular/router": "^14.0.0",
+    "@capacitor/android": "4.7.0",
+    "@capacitor/app": "^4.1.1",
+    "@capacitor/core": "4.7.0",
+    "@capacitor/haptics": "4.1.0",
+    "@capacitor/keyboard": "4.1.1",
+    "@capacitor/status-bar": "4.1.1",
     "@ionic/angular": "^6.6.1",
+    "@ionic/cordova-builders": "^8.0.0",
     "@popperjs/core": "^2.10.2",
+    "cordova-android": "10.1.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
@@ -30,14 +38,32 @@
     "@angular-devkit/build-angular": "^14.0.2",
     "@angular/cli": "~14.0.2",
     "@angular/compiler-cli": "^14.0.0",
+    "@capacitor/cli": "4.7.0",
+    "@ionic/angular-toolkit": "latest",
     "@types/jasmine": "~4.0.0",
+    "cordova-plugin-device": "2.0.2",
+    "cordova-plugin-ionic-keyboard": "^2.0.5",
+    "cordova-plugin-ionic-webview": "^5.0.0",
+    "cordova-plugin-splashscreen": "5.0.2",
+    "cordova-plugin-statusbar": "^2.4.2",
     "jasmine-core": "~4.1.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
-    "typescript": "~4.7.2",
-    "@ionic/angular-toolkit": "latest"
+    "typescript": "~4.7.2"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-statusbar": {},
+      "cordova-plugin-device": {},
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-ionic-keyboard": {}
+    },
+    "platforms": [
+      "android"
+    ]
   }
 }

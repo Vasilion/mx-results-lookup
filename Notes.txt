@@ -1,0 +1,6 @@
+Android build Commands
+
+1. ionic build
+2. copy dist to www dir
+3. ionic capacitor sync android
+4. ionic cap open android

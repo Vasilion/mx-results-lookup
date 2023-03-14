@@ -1,21 +1,22 @@
 <ion-content class="ion-padding" color="light">
     <div class="center">
         <ion-card class="wider-card">
-            <ion-item>
+            <ion-item lines="full">
                 <ion-label>
                     <h1>
                         {{racerProfile.firstName}} {{racerProfile.lastName}}
                     </h1>
                 </ion-label>
             </ion-item>
-            <ion-item>
+            <ion-item lines="full">
                 <ion-label>
                     <h2>AMA Member: {{racerProfile.amaNumber}}</h2>
                 </ion-label>
             </ion-item>
-            <ion-item>
+            <ion-item lines="full">
                 <ion-label>
                     <h2>Rank: {{riderRank}} </h2>
+                    <p><ion-progress-bar [value]="experienceProgress"></ion-progress-bar></p>
                     <p> {{experienceToLevelUp}}</p>
                 </ion-label>
             </ion-item>
@@ -42,7 +43,7 @@
             </ion-card-header>
             <ion-card-content>
                 <ion-list class="race-list">                    
-                    <ion-item *ngFor="let r of racerResults;">
+                    <ion-item *ngFor="let r of racerResults;" lines="full">
                         <ion-label>
                             <h2>
                                 <b>{{r.eventName}} {{r.year}}</b>
@@ -66,7 +67,7 @@
                                 <b>Overall:</b> {{r.overallResult}}
                             </p>
                             <p>
-                                <ion-button color="primary" id={{modalID}} expand="block"
+                                <ion-button color="primary" class="mx-font" id={{modalID}} expand="block"
                                     (click)="getRaceDetails(r.classSlug)">View Results</ion-button>
                             </p>
                         </ion-label>
@@ -87,7 +88,7 @@
             </ion-header>
             <ion-content class="ion-padding">
                 <ion-list>
-                    <ion-item *ngFor="let e of eventResults;">
+                    <ion-item *ngFor="let e of eventResults;" lines="full">
                         <ion-label>
                             <h2>
                                 {{e.position_in_class}} Overall - {{e.racer_name}}

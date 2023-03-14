@@ -3,6 +3,7 @@ import { MatAccordion } from '@angular/material';
 import { IonModal } from '@ionic/angular';
 import { Event, RacerProfile } from '../interfaces/rider';
 import { RiderService } from '../services/rider.service';
+import { App as CapacitorApp } from '@capacitor/app';
 
 @Component({
   selector: 'app-rider-profile',
@@ -21,6 +22,7 @@ export class RiderProfileComponent implements OnInit {
   riderRank: string;
   experienceToLevelUp: string;
   isLoading: boolean = false;
+  experienceProgress: number = 0;
 
   constructor(private riderService: RiderService) { }
 
@@ -31,6 +33,9 @@ export class RiderProfileComponent implements OnInit {
 
   cancel() {
     this.modal.dismiss();
+    CapacitorApp .addListener('backButton', () => {
+      this.modal.dismiss();
+    });
   }
   
   getRacerResults(){
@@ -92,26 +97,32 @@ export class RiderProfileComponent implements OnInit {
     if(experience >= 10 && experience < 30){
       this.experienceToLevelUp = (30 - experience).toString() + " xp to level up."
       this.riderRank = 'Silver'
+      this.experienceProgress = experience/30;
     }
     if(experience >= 30 && experience < 70){
       this.experienceToLevelUp = (70 - experience).toString() + " xp to level up."
       this.riderRank = 'Gold'
+      this.experienceProgress = experience/70;
     }
     if(experience >= 70 && experience < 120){
       this.experienceToLevelUp = (120 - experience).toString() + " xp to level up."
       this.riderRank = 'Platinum'
+      this.experienceProgress = experience/120;
     }
     if(experience >= 120 && experience < 300){
       this.experienceToLevelUp = (300 - experience).toString() + " xp to level up."
       this.riderRank = 'Diamond'
+      this.experienceProgress = experience/300;
     }
     if(experience >= 300 && experience < 600){
       this.experienceToLevelUp = (600 - experience).toString() + " xp to level up."
       this.riderRank = 'Champion'
+      this.experienceProgress = experience/600;
     }
     if(experience > 600){
       this.experienceToLevelUp = "Max Level Achieved!"
       this.riderRank = 'Master'
+      this.experienceProgress = 1;
     }
 
     console.log(experience);

@@ -1,0 +1,13 @@
+{
+  "defaultProject": "mx-results-lookup",
+  "projects": {
+    "mx-results-lookup": {
+      "name": "mx-results-lookup",
+      "integrations": {
+        "cordova": {},
+        "capacitor": {}
+      },
+      "type": "angular"
+    }
+  }
+}
