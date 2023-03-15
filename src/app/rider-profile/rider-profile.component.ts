@@ -33,9 +33,9 @@ export class RiderProfileComponent implements OnInit {
 
   cancel() {
     this.modal.dismiss();
-    CapacitorApp .addListener('backButton', () => {
-      this.modal.dismiss();
-    });
+    // CapacitorApp .addListener('backButton', () => {
+    //   this.modal.dismiss();
+    // });
   }
   
   getRacerResults(){
