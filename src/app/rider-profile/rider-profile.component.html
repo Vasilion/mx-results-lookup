@@ -1,4 +1,9 @@
-<ion-content class="ion-padding" color="light">
+<ion-content class="ion-padding" *ngIf="isLoading">
+    <div class="center loading">
+        <ion-spinner name="dots"></ion-spinner>
+    </div>    
+</ion-content>
+<ion-content class="ion-padding" color="light" *ngIf="!isLoading">
     <div class="center">
         <ion-card class="wider-card">
             <ion-item lines="full">
@@ -94,11 +99,13 @@
                     <ion-item *ngFor="let e of eventResults;" lines="full">
                         <ion-label>
                             <h2>
-                                {{e.position_in_class}} Overall - {{e.racer_name}}
+                                <b>{{e.position_in_class}}</b> {{e.racer_name}}
                             </h2>
                             <p>
                                 Moto 1: {{e.meta.moto1Finish}} | Moto 2 : {{e.meta.moto2Finish}}
                             </p>
+                            <p><ion-button color="dark" id={{modalID}} expand="block"
+                                (click)="buildRacerProfile(e.racer_slug)">View Profile</ion-button></p>
                         </ion-label>
                     </ion-item>
                 </ion-list>

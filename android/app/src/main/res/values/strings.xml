@@ -2,6 +2,6 @@
 <resources>
     <string name="app_name">Unycross</string>
     <string name="title_activity_main">Unycross</string>
-    <string name="package_name">io.ionic.starter</string>
-    <string name="custom_url_scheme">io.ionic.starter</string>
+    <string name="package_name">com.unycross.app</string>
+    <string name="custom_url_scheme">com.unycross.app</string>
 </resources>

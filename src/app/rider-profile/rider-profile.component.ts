@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatAccordion } from '@angular/material';
 import { IonModal } from '@ionic/angular';
-import { Event, RacerProfile } from '../interfaces/rider';
+import { switchMap } from 'rxjs';
+import { Event, RacerProfile, RacerProfileRaceResult } from '../interfaces/rider';
 import { RiderService } from '../services/rider.service';
-import { App as CapacitorApp } from '@capacitor/app';
 
 @Component({
   selector: 'app-rider-profile',
@@ -29,6 +29,7 @@ export class RiderProfileComponent implements OnInit {
   constructor(private riderService: RiderService) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.racerProfile = this.riderService.getLocalProfile();
     this.getRacerResults();
   }
@@ -42,7 +43,7 @@ export class RiderProfileComponent implements OnInit {
   
   getRacerResults(){
     this.riderService.getResults(this.racerProfile.slug).subscribe( res =>{
-      this.isLoading = true;
+      this.racerTotalPodiums = 0;
       let allResults: Event[] = [];
       res.results.forEach( race =>{
         let classSlugIndex = race.run.results_url.lastIndexOf('/');
@@ -70,12 +71,77 @@ export class RiderProfileComponent implements OnInit {
           this.racerTotalPodiums +=1
         }
         allResults.push(result);
-        this.isLoading = false;
       })
       this.racerResults = allResults.reverse();
       this.racerTotalRaces = allResults.length;
       this.setRiderRank(this.racerResults);
+      this.isLoading = false;
     })
+  }
+
+  buildRacerProfile(racerSlug: string) {
+    this.isLoading = true;
+    this.riderService.getRacerProfile(racerSlug).pipe(switchMap(res => {
+      const allRaces: RacerProfileRaceResult[] = [];
+      res.runs.forEach(race => {
+        const result: RacerProfileRaceResult = {
+          class: race.name,
+          position: race.results[0].position_in_class,
+          dateString: race.started_at
+        }
+        allRaces.push(result);
+      })
+      let racerProfileResponse: RacerProfile = {
+        firstName: res.profile.first_name,
+        lastName: res.profile.last_name,
+        birthdate: res.profile.birthdate,
+        city: res.profile.city,
+        homeTown: res.profile.homeTown,
+        amaNumber: res.profile.meta.ama_num,
+        class: res.profile.meta.levels.MX,
+        slug: res.profile.slug,
+        state: res.profile.state,
+        raceResults: allRaces
+      }
+      this.racerProfile = racerProfileResponse
+      this.riderService.updateLocalProfile(this.racerProfile);
+      return this.riderService.getResults(this.racerProfile.slug)
+    })).subscribe( res =>{
+      this.racerTotalPodiums = 0;
+      let allResults: Event[] = [];
+      res.results.forEach( race =>{
+        const classSlugIndex: number = race.run.results_url.lastIndexOf('/');
+        const cSlug: string = race.run.results_url.substring(classSlugIndex + 1)
+        const result: Event = {
+          dateString: race.event.started_at,
+          eventName: race.event.name,
+          trackName: race.event.venue.name,
+          eventSlug: race.event.slug,
+          id: race.event.id,
+          city: race.event.meta.city,
+          district: race.event.meta.district,
+          year: race.event.meta.season,
+          state: race.event.meta.state,
+          class: race.racer_class,
+          racerName: race.racer_name,
+          amaNumber: race.racer_number,
+          moto1Result: race.meta.moto1Finish,
+          moto2Result: race.meta.moto2Finish,
+          overallResult: race.position_in_class,
+          eventPoints: race.meta.points,
+          classSlug: cSlug
+        }
+        if(result.overallResult == '1' || result.overallResult == '2' || result.overallResult == '3' ){
+          this.racerTotalPodiums +=1
+        }
+        allResults.push(result);
+      })
+      this.racerResults = allResults.reverse();
+      this.racerTotalRaces = allResults.length;
+      this.setRiderRank(this.racerResults);
+      this.isLoading = false;
+    });
+    this.modal.dismiss();
   }
 
   setRiderRank(results: Event[]){
@@ -131,15 +197,12 @@ export class RiderProfileComponent implements OnInit {
       this.experienceProgress = 1;
     }
 
-    console.log(experience);
   }
 
   getRaceDetails(classSlug: string){
     this.modal.present();
     this.riderService.getClassDetailsByEvent(classSlug).subscribe(res =>{
-      console.log(res);
       this.eventResults = res.results.sort((a, b) => (a.position_in_class > b.position_in_class) ? 1 : -1);
-      console.log(this.eventResults);
     })
   }
 

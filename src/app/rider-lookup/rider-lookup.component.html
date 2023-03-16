@@ -1,8 +1,9 @@
 <ion-content class="ion-padding" color="light">
 <div id="search-form">
-    <img src="assets/img/unycross-trans.png" class="logo" />
+    <img src="assets/img/unycross.png" class="logo" />
     <br />
     <br />
+    <h1 class="center"> AMA Rider Search</h1>
     <ion-item fill="outline" lines="full">
         <ion-label position="floating">Search AMA Rider</ion-label>
         <ion-input [value]="racerName" placeholder="Enter Name or AMA #" name="racerName" [(ngModel)]="racerName"></ion-input>
@@ -12,7 +13,10 @@
 </div>
 <br />
 <div id="results">
-    <div>
+    <div *ngIf="isLoading" class="center">
+        <ion-spinner name="dots"></ion-spinner>
+    </div>   
+    <div *ngIf="!isLoading">
         <div>
             <ion-item [hidden]="isData" lines="full">
                 <ion-label>

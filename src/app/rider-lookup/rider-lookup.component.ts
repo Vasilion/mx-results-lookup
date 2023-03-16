@@ -23,6 +23,7 @@ export class RiderLookupComponent implements OnInit {
   seasonYear: number = this.currentTime.getFullYear();
   riderSeasonlevel: string = "";
   years: number[] = [2021, 2022]
+  isLoading: boolean = false;
 
   constructor(private riderService: RiderService, private router: Router) { }
 
@@ -31,8 +32,8 @@ export class RiderLookupComponent implements OnInit {
 
   searchForRacer(riderName: string) {
     this.racerList = [];
+    this.isLoading = true;
     this.riderService.getRacerList(riderName).subscribe(res => {
-      console.log(res.count);
       if(res.count === 0){
         this.isData = false;
       }
@@ -43,9 +44,10 @@ export class RiderLookupComponent implements OnInit {
           state: element.state,
           city: element.city
         }
-        this.racerList.push(racer);
-        this.isData = true;
+        this.racerList.push(racer);        
       });
+      this.isData = true;
+      this.isLoading = false;
     });
   }
 
