@@ -8,7 +8,7 @@
         <ion-input [value]="racerName" placeholder="Enter Name or AMA #" name="racerName" [(ngModel)]="racerName"></ion-input>
     </ion-item>
     <br />
-    <ion-button color="primary" class="mx-font" [disabled]="!racerName || racerName.length < 3" (click)="searchForRacer(racerName)">Search</ion-button>
+    <ion-button color="primary" [disabled]="!racerName || racerName.length < 3" (click)="searchForRacer(racerName)">Search</ion-button>
 </div>
 <br />
 <div id="results">

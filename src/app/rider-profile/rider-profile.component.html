@@ -30,6 +30,9 @@
             </ion-card-header>
             <ion-card-content>
                 <p><b>Rider Class:</b> {{racerProfile.class}}</p>
+                <p><b>Total Podiums All-Time:</b> {{racerTotalPodiums}}</p>
+                <p><b>Total Races All-Time:</b> {{racerTotalRaces}}</p>
+                <p><b>Podium Average:</b> {{((racerTotalPodiums / racerTotalRaces) * 100).toFixed()}}%</p>
                 <p><b>Rider Birthdate:</b> {{racerProfile.birthdate | date: "longDate"}}</p>
                 <p><b>Home Town:</b> {{racerProfile.city}}, {{racerProfile.state.toUpperCase()}}</p>
             </ion-card-content>
@@ -67,7 +70,7 @@
                                 <b>Overall:</b> {{r.overallResult}}
                             </p>
                             <p>
-                                <ion-button color="primary" class="mx-font" id={{modalID}} expand="block"
+                                <ion-button color="primary" id={{modalID}} expand="block"
                                     (click)="getRaceDetails(r.classSlug)">View Results</ion-button>
                             </p>
                         </ion-label>

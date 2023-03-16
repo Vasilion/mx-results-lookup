@@ -16,6 +16,8 @@ export class RiderProfileComponent implements OnInit {
 
   racerProfile:RacerProfile;
   racerResults: Event[];
+  racerTotalRaces: number = 0;
+  racerTotalPodiums: number = 0;
   panelOpenState: boolean = false;
   modalID: string;
   eventResults: any[];
@@ -64,10 +66,14 @@ export class RiderProfileComponent implements OnInit {
           eventPoints: race.meta.points,
           classSlug: cSlug
         }
+        if(result.overallResult == '1' || result.overallResult == '2' || result.overallResult == '3' ){
+          this.racerTotalPodiums +=1
+        }
         allResults.push(result);
         this.isLoading = false;
       })
       this.racerResults = allResults.reverse();
+      this.racerTotalRaces = allResults.length;
       this.setRiderRank(this.racerResults);
     })
   }
