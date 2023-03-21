@@ -31,11 +31,13 @@ export class RiderLookupComponent implements OnInit {
   }
 
   searchForRacer(riderName: string) {
+    this.isData = true;
     this.racerList = [];
     this.isLoading = true;
     this.riderService.getRacerList(riderName).subscribe(res => {
       if(res.count === 0){
         this.isData = false;
+        this.isLoading = false;
       }
       res.data.forEach(element => {
         let racer: Racer = {
@@ -46,8 +48,8 @@ export class RiderLookupComponent implements OnInit {
         }
         this.racerList.push(racer);        
       });
-      this.isData = true;
       this.isLoading = false;
+      console.log(this.isData);
     });
   }
 
@@ -79,8 +81,6 @@ export class RiderLookupComponent implements OnInit {
       this.router.navigateByUrl('/riderProfile')
     })
   }
-
-
 }
 
 
