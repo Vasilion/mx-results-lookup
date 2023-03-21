@@ -14,6 +14,7 @@ import { MatCardModule } from '@angular/material/card';
 import { RiderProfileComponent } from './rider-profile/rider-profile.component';
 import { IonicModule } from '@ionic/angular';
 import { HelpGuideComponent } from './help-guide/help-guide.component';
+import { AmaRulesIndexComponent } from './ama-rules-index/ama-rules-index.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { HelpGuideComponent } from './help-guide/help-guide.component';
     AppComponent,
     RiderLookupComponent,
     RiderProfileComponent,
-    HelpGuideComponent
+    HelpGuideComponent,
+    AmaRulesIndexComponent
   ],
   imports: [
     BrowserModule,
