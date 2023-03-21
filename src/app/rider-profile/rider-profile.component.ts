@@ -25,6 +25,7 @@ export class RiderProfileComponent implements OnInit {
   experienceToLevelUp: string;
   isLoading: boolean = false;
   experienceProgress: number = 0;
+  rankCss: string ='';
 
   constructor(private riderService: RiderService) { }
 
@@ -165,36 +166,43 @@ export class RiderProfileComponent implements OnInit {
 
     if(experience < 10){
       this.riderRank = 'Bronze'
+      this.rankCss = 'bronze'
     }
     if(experience >= 10 && experience < 30){
       this.experienceToLevelUp = (30 - experience).toString() + " xp to level up."
       this.riderRank = 'Silver'
       this.experienceProgress = experience/30;
+      this.rankCss = 'silver'
     }
     if(experience >= 30 && experience < 70){
       this.experienceToLevelUp = (70 - experience).toString() + " xp to level up."
       this.riderRank = 'Gold'
       this.experienceProgress = experience/70;
+      this.rankCss = 'gold'
     }
     if(experience >= 70 && experience < 120){
       this.experienceToLevelUp = (120 - experience).toString() + " xp to level up."
       this.riderRank = 'Platinum'
       this.experienceProgress = experience/120;
+      this.rankCss = 'plat'
     }
     if(experience >= 120 && experience < 300){
       this.experienceToLevelUp = (300 - experience).toString() + " xp to level up."
       this.riderRank = 'Diamond'
       this.experienceProgress = experience/300;
+      this.rankCss = 'diamond'
     }
     if(experience >= 300 && experience < 600){
       this.experienceToLevelUp = (600 - experience).toString() + " xp to level up."
       this.riderRank = 'Champion'
       this.experienceProgress = experience/600;
+      this.rankCss = 'champ'
     }
     if(experience > 600){
       this.experienceToLevelUp = "Max Level Achieved!"
       this.riderRank = 'Master'
       this.experienceProgress = 1;
+      this.rankCss = 'master'
     }
 
   }

@@ -15,14 +15,14 @@
             </ion-item>
             <ion-item lines="full">
                 <ion-label>
-                    <h2>AMA Member: {{racerProfile.amaNumber}}</h2>
+                    <h2><b>AMA Member: </b>{{racerProfile.amaNumber}}</h2>
                 </ion-label>
             </ion-item>
             <ion-item lines="full">
                 <ion-label>
-                    <h2>Rank: {{riderRank}} </h2>
+                    <h2><b>Rank: </b><span class="mx-font" [ngClass]="rankCss">{{riderRank}}</span></h2>
                     <p><ion-progress-bar [value]="experienceProgress"></ion-progress-bar></p>
-                    <p> {{experienceToLevelUp}}</p>
+                    <p>{{experienceToLevelUp}}</p>
                 </ion-label>
             </ion-item>
         </ion-card>
@@ -97,12 +97,12 @@
             <ion-content class="ion-padding">
                 <ion-list>
                     <ion-item *ngFor="let e of eventResults;" lines="full">
-                        <ion-label>
-                            <h2>
-                                <b>{{e.position_in_class}}</b> {{e.racer_name}}
+                        <ion-label >
+                            <h2 class="center">
+                                <b>{{e.position_in_class}}</b>&nbsp;{{e.racer_name}}
                             </h2>
-                            <p>
-                                Moto 1: {{e.meta.moto1Finish}} | Moto 2 : {{e.meta.moto2Finish}}
+                            <p class="center">
+                                <b>Moto 1:</b>&nbsp;{{e.meta.moto1Finish}}&nbsp;|&nbsp;<b>Moto 2 :</b>&nbsp;{{e.meta.moto2Finish}}
                             </p>
                             <p><ion-button color="dark" id={{modalID}} expand="block"
                                 (click)="buildRacerProfile(e.racer_slug)">View Profile</ion-button></p>
